@@ -14,30 +14,32 @@ module.exports = function(grunt) {
 
   // creates a data structure that reflects the folder structure on the
   // file system
-  var createDataStructure = function(folderStructure, directoryArray) {
+  var createDataStructure = function(folderStructure, directoryArray, filepath) {
     if (directoryArray.length === 1) {
       folderStructure.push({
-        id: directoryArray[0]
+        id: directoryArray[0],
+        title: getTitle(directoryArray[0]),
+        path: filepath
       });
     } else {
-      var parentFolder = findMatchingFolderInDataStructure(folderStructure, directoryArray[0]);
+      // does this folder already exist in our folderStructure
+      var folder = findMatchingFolderInDataStructure(folderStructure, directoryArray[0]);
 
-      if (parentFolder === null) {
+      if (!folder) {
         var newFolder = {
-          id: directoryArray[0],
-          title: getTitle(directoryArray[0])
+          id: directoryArray[0]
         };
 
         folderStructure.push(newFolder);
 
-        parentFolder = newFolder;
+        folder = newFolder;
       }
 
-      if (!parentFolder.children) {
-        parentFolder.children = [];
+      if (!folder.children) {
+        folder.children = [];
       }
 
-      createDataStructure(parentFolder.children, directoryArray.slice(1));
+      createDataStructure(folder.children, directoryArray.slice(1));
     }
   };
 
@@ -95,15 +97,12 @@ module.exports = function(grunt) {
   };
 
   var getFileData = function(options, directoryStructure, filepath) {
-    var fileDirectories = getFilePathDirectories(options, filepath);
-    var parentDirectory = fileDirectories[fileDirectories.length - 2];
-    var parentFolder = findParentFolderInDataStructure(directoryStructure, fileDirectories.slice(0, fileDirectories.length - 1));
+    var splitPaths = getFilePathDirectories(options, filepath);
+    var parentDirectory = splitPaths[splitPaths.length - 2];
+    var directories = splitPaths.slice(0, splitPaths.length - 1);
 
-    parentFolder.path = filepath;
+    createDataStructure(directoryStructure, directories, filepath);
 
-    if (!parentFolder.title) {
-      parentFolder.title = getTitle(parentDirectory);
-    }
   };
 
   grunt.registerMultiTask('project_homepage', 'Generate a project homepage from a directory structure', function() {
@@ -131,15 +130,10 @@ module.exports = function(grunt) {
     };
     // Iterate over all specified file groups.
     this.files.forEach(function(f) {
-      var fileDirectories = f.src.map(getFilePathDirectories.bind(this, options)).map(function(directoryArray) {
-        return directoryArray.slice(0, directoryArray.length - 1);
-      });
 
       var directoryStructure = {
         modules: []
       };
-
-      fileDirectories.forEach(createDataStructure.bind(this, directoryStructure.modules));
 
       f.src.forEach(getFileData.bind(this, options, directoryStructure.modules));
 
