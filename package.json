@@ -1,7 +1,7 @@
 {
   "name": "grunt-directory-to-html",
   "description": "Generate an html page from a directory structure",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "homepage": "https://github.com/stephendeyoung/grunt-directory-to-html",
   "author": {
     "name": "Stephen Young",

@@ -97,14 +97,14 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 grunt.loadNpmTasks('grunt-directory-to-html');
 ```
 
-## The "directory-to-html" task
+## The "to_html" task
 
 ### Overview
-In your project's Gruntfile, add a section named `directory_to_html` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `to_html` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig({
-  directory_to_html: {
+  to_html: {
     options: {
       // Task-specific options go here.
     },
@@ -120,7 +120,7 @@ or
 
 ```js
 grunt.initConfig({
-  directory_to_html: {
+  to_html: {
     'dest/index.html': 'modules/**/index.html'
   }
 })
