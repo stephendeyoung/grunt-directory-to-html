@@ -1,0 +1,23 @@
+<ul>
+    {{#each modules}}
+    <li>
+        {{#if path}}
+        <h2>
+            <a href="{{path}}">{{title}}</a>
+        </h2>
+        {{else}}
+
+        <h2>{{title}}</h2>
+
+        {{/if}}
+
+        {{#if description}}
+        <p>{{description}}</p>
+        {{/if}}
+
+        {{#if children}}
+            {{&recurse children}}
+        {{/if}}
+    </li>
+    {{/each}}
+</ul>

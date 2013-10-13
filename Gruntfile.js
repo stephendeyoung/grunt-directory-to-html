@@ -1,6 +1,6 @@
 /*
- * grunt-project-homepage
- * https://github.com/youngst/grunt-project-homepage
+ * grunt-directory-to-html
+ * https://github.com/stephendeyoung/grunt-directory-to-html
  *
  * Copyright (c) 2013 Stephen Young
  * Licensed under the MIT license.
@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     },
 
     // Configuration to be run (and then tested).
-    project_homepage: {
+    to_html: {
       default_options: {
         options: {
         },
@@ -41,7 +41,7 @@ module.exports = function(grunt) {
       },
       module_directory_option: {
         options: {
-          modulesDirectory: 'components'
+          rootDirectory: 'components'
         },
         files: {
           'tmp/index4.html': 'test/fixtures/module_directory_option/**/index.html'
@@ -54,12 +54,61 @@ module.exports = function(grunt) {
         files: {
           'tmp/index5.html': 'test/fixtures/generate_page_option/**/index.html'
         }
+      },
+      template_option: {
+        options: {
+          template: grunt.file.read('test/fixtures/templates/test_template.jade')
+        },
+        files: {
+          'tmp/index6.html': 'test/fixtures/template_option/**/index.html'
+        }
+      },
+      json_data: {
+        options: {
+          template: grunt.file.read('test/fixtures/templates/template_with_random_data.jade')
+        },
+        files: {
+          'tmp/index7.html': 'test/fixtures/json_data/**/index.html',
+          'tmp/index8.html': 'test/fixtures/json_data_extra/**/index.html'
+        }
+      },
+      handlebars_option: {
+        options: {
+          template: grunt.file.read('tasks/templates/html-structure.hbs'),
+          templatingLanguage: 'handlebars'
+        },
+        files: {
+          'tmp/index9.html': 'test/fixtures/handlebars_option/**/index.html'
+        }
+      },
+      title_option: {
+        options: {
+          generatePage: true,
+          title: 'A different title'
+        },
+        files: {
+          'tmp/index10.html': 'test/fixtures/generate_page_option/**/index.html'
+        }
+      },
+      stylesheet_option: {
+        options: {
+          generatePage: true,
+          stylesheet: '/path/to/stylesheet.css'
+        },
+        files: {
+          'tmp/index11.html': 'test/fixtures/generate_page_option/**/index.html'
+        }
+      },
+      dashes_for_folder_name: {
+        files: {
+          'tmp/index12.html': 'test/fixtures/dashes-in-folder-name/**/index.html'
+        }
       }
     },
 
     // Unit tests.
     nodeunit: {
-      tests: ['test/*_test.js'],
+      tests: ['test/*-test.js'],
     }
 
   });
@@ -74,7 +123,7 @@ module.exports = function(grunt) {
 
   // Whenever the "test" task is run, first clean the "tmp" dir, then run this
   // plugin's task(s), then test the result.
-  grunt.registerTask('test', ['clean', 'jshint', 'project_homepage', 'nodeunit']);
+  grunt.registerTask('test', ['clean', 'jshint', 'to_html', 'nodeunit']);
 
   // By default, lint and run all tests.
   grunt.registerTask('default', ['jshint', 'test']);

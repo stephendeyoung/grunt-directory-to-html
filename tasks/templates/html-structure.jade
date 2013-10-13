@@ -1,0 +1,35 @@
+
+mixin title(module)
+    if module.path
+        a(href=module.path)= module.title
+    else
+        = module.title
+
+mixin generateTemplate(modules)
+    ul
+        each module in modules
+            li
+                case module.level
+                    when 0
+                        h2
+                            +title(module)
+                    when 1
+                        h3
+                            +title(module)
+                    when 2
+                        h4
+                            +title(module)
+                    when 3
+                        h5
+                            +title(module)
+                    default
+                        h6
+                            +title(module)
+
+                if module.description
+                    p= module.description
+
+                if module.children
+                    mixin generateTemplate(module.children)
+
++generateTemplate(modules)

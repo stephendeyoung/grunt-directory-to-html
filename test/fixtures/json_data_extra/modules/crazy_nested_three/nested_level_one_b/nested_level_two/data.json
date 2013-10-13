@@ -1,0 +1,12 @@
+{
+    "title": "A fancier title",
+    "description": "A fancy description.",
+    "randomData": [
+        {
+            "test": "test text"
+        },
+        {
+            "test": "test text 2"
+        }
+    ]
+}

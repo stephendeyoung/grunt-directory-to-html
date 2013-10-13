@@ -1,0 +1,23 @@
+
+mixin generateTemplate(modules)
+    ul
+        each module in modules
+            li
+                if module.path
+                    h2
+                        a(href=module.path)= module.title
+                else
+                    h2= module.title
+
+                if module.description
+                    p= module.description
+
+                if module.randomData
+                    ul
+                        each data in module.randomData
+                            li= data.test
+
+                if module.children
+                    mixin generateTemplate(module.children)
+
++generateTemplate(modules)
