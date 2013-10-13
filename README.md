@@ -1,6 +1,6 @@
 # grunt-directory-to-html
 
-> Generate an html page from a directory structure. This can be useful for automatically creating a homepage for a project. For example, given this directory structure:
+Generate an html page from a directory structure. This can be useful for automatically creating a homepage for a project. For example, given this directory structure:
 
 ```
 └── modules
@@ -170,7 +170,7 @@ By default the plugin will use jade to compile the template, however, you can us
 
 #### Understanding templates
 
-When the `directory-to-html` task is run it will construct an object that reflects the directory structure. For example, given this folder structure:
+When the `to_html` task is run it will construct an object that reflects the directory structure. For example, given this folder structure:
 
 ```
 └── modules
