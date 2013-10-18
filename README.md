@@ -338,3 +338,7 @@ You can use a [handlebars](http://handlebarsjs.com/) template instead of jade as
 ```
 
 From this you should be able to determine how to write your own handlebars template. Note that the plugin registers a helper `recurse` so that you can recurse through the object structure.
+
+## Running the tests
+
+After you have cloned the repo execute `grunt test`.
