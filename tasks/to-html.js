@@ -11,6 +11,7 @@
 var fs = require('fs');
 var jade = require('jade');
 var handlebars = require('handlebars');
+var path = require('path');
 
 module.exports = function(grunt) {
 
@@ -104,7 +105,8 @@ module.exports = function(grunt) {
 
     if (directories.length === 1) {
       directoryStructure.push(grunt.util._.extend(fileLocationData, {
-        path: filepath
+        path: filepath,
+        filename: path.basename(filepath)
       }));
     } else {
       // does this folder already exist in our directoryStructure
