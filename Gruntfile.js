@@ -99,6 +99,14 @@ module.exports = function(grunt) {
           'tmp/index11.html': 'test/fixtures/generate_page_option/**/index.html'
         }
       },
+      use_filename_as_title_option: {
+        options: {
+          useFileNameAsTitle: true
+        },
+        files: {
+          'tmp/index13.html': 'test/fixtures/use_filename_as_title_option/**/*.html'
+        }
+      },
       dashes_for_folder_name: {
         files: {
           'tmp/index12.html': 'test/fixtures/dashes-in-folder-name/**/index.html'
@@ -126,6 +134,6 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['clean', 'jshint', 'to_html', 'nodeunit']);
 
   // By default, lint and run all tests.
-  grunt.registerTask('default', ['jshint', 'test']);
+  grunt.registerTask('default', ['test']);
 
 };

@@ -129,6 +129,15 @@ exports.to_html = {
 
     test.done();
   },
+  use_filename_as_title_option: function(test) {
+    test.expect(1);
+
+    var actual = grunt.file.read('tmp/index13.html');
+    var expected = grunt.file.read('test/expected/index13.html');
+    test.equal(actual, expected, 'should be able to use filename as a title instead');
+
+    test.done();
+  },
   dashes_for_folder_name: function(test) {
     test.expect(1);
 

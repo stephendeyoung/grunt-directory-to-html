@@ -22,7 +22,8 @@ module.exports = function(grunt) {
       template: false,
       templatingLanguage: 'jade',
       title: 'Project homepage',
-      stylesheet: false
+      stylesheet: false,
+      useFileNameAsTitle: false
     });
 
     var template;
@@ -70,7 +71,17 @@ module.exports = function(grunt) {
 
   function buildDataStructure(options, directoryStructure, filepath) {
     var splitPaths = getDirectoryInFilepath(options.rootDirectory, filepath, true).split('/');
-    var directories = splitPaths.slice(0, splitPaths.length - 1);
+    var filenameIndex = splitPaths.length - 1;
+    var directories;
+
+    if (options.useFileNameAsTitle) {
+      var filename = splitPaths[filenameIndex];
+      var findDot = filename.indexOf('.');
+      var filenameWithoutExtension = filename.slice(0, findDot);
+      directories = splitPaths.slice(0, filenameIndex).concat(filenameWithoutExtension);
+    } else {
+      directories = splitPaths.slice(0, filenameIndex);
+    }
 
     addFileLocationToDirectoryStructure(directoryStructure, directories, filepath, 0);
   }
