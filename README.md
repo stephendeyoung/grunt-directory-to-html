@@ -32,6 +32,51 @@ The plugin will generate this html:
 </ul>
 ```
 
+The plugin can also generate links based on the file name rather than folder name. For example, given this directory structure:
+
+```
+└── modules
+    ├── another_test_link
+    │   └── test-1.html
+    └── test_link
+        └── nested_test_link
+            └── test-2.html
+```
+
+The plugin will generate this html:
+
+```html
+
+<ul>
+  <li>
+    <h2>Another test link
+    </h2>
+    <ul>
+      <li>
+        <h3><a href="modules/another_test_link/test-1.html">Test 1</a>
+        </h3>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <h2>Test link
+    </h2>
+    <ul>
+      <li>
+        <h3>Nested test link
+        </h3>
+        <ul>
+          <li>
+            <h4><a href="modules/test_link/nested_test_link/test-2.html">Test 2</a>
+            </h4>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+```
+
 ## How it works
 
 Based on the file paths you specify in your `grunt.initConfig` (see below) the plugin will create html markup that reflects this directory structure using unordered lists and will create links to any matching files it finds. The plugin will use the names of directories to generate the titles in the html. For example, a directory name of `test_folder_link` will become 'Test folder link' in the html (you can use dashes in the folder name instead of underscores).
@@ -127,6 +172,12 @@ grunt.initConfig({
 ```
 
 ### Options
+
+#### options.useFileNameAsTitle
+Type: `Boolean`
+Default value: `false`
+
+If set to `true` this will generate links based on filenames rather than folder names. See the top of this README for an example.
 
 #### options.rootDirectory
 Type: `String`
