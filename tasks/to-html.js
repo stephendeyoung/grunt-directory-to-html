@@ -18,6 +18,7 @@ module.exports = function(grunt) {
     // Merge task-specific and/or target-specific options with these defaults
     var options = this.options({
       rootDirectory: 'modules',
+      relativeURLPath: '',
       generatePage: false,
       template: false,
       templatingLanguage: 'jade',
@@ -83,7 +84,7 @@ module.exports = function(grunt) {
       directories = splitPaths.slice(0, filenameIndex);
     }
 
-    addFileLocationToDirectoryStructure(directoryStructure, directories, filepath, 0);
+    addFileLocationToDirectoryStructure(options, directoryStructure, directories, filepath, 0);
   }
 
   function getDirectoryInFilepath(name, filepath, sliceFromNameToEnd) {
@@ -100,7 +101,7 @@ module.exports = function(grunt) {
     return directoryPath;
   }
 
-  function addFileLocationToDirectoryStructure(directoryStructure, directories, filepath, level) {
+  function addFileLocationToDirectoryStructure(options, directoryStructure, directories, filepath, level) {
     var directoryLocation = getDirectoryInFilepath(directories[0], filepath, false);
     var pathToJSON = directoryLocation + '/data.json';
     var fileLocationData = {
@@ -111,6 +112,11 @@ module.exports = function(grunt) {
 
     if (fs.existsSync(pathToJSON)) {
       fileLocationData = grunt.util._.extend(fileLocationData, grunt.file.readJSON(pathToJSON));
+    }
+
+    if(options.relativeURLPath && options.relativeURLPath.length) {
+      filepath = filepath.split("/").pop();
+      filepath = options.relativeURLPath + filepath;
     }
 
     if (directories.length === 1) {
@@ -132,7 +138,7 @@ module.exports = function(grunt) {
         folder.children = [];
       }
 
-      addFileLocationToDirectoryStructure(folder.children, directories.slice(1), filepath, level + 1);
+      addFileLocationToDirectoryStructure(options, folder.children, directories.slice(1), filepath, level + 1);
     }
   }
 
