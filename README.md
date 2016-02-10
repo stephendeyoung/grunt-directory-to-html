@@ -185,6 +185,12 @@ Default value: `modules`
 
 The root directory which contains the folders you want to link to in the html. You must ensure this is specified correctly otherwise the html that is generated will be incorrect.
 
+#### options.relativeURLPath
+Type: `String`
+Default value: ``
+
+The relative URL to your files on the web server. For instance, if relativeURLPath = '/', a file with a root path of dist/myapp/index.html will be rewritten as /myapp/index.html
+
 #### options.generatePage
 Type: `Boolean`
 Default value: `false`
